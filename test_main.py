@@ -9,11 +9,15 @@ def setup_function():
     tasks.clear()
 
 
+# def test_health():
+#     """GET /health returns 200 and correct status message."""
+#     response = client.get("/health")
+#     assert response.status_code == 200
+#     assert response.json() == {"status": "ok"}
+
 def test_health():
-    """GET /health returns 200 and correct status message."""
     response = client.get("/health")
-    assert response.status_code == 200
-    assert response.json() == {"status": "ok"}
+    assert response.status_code == 999  # ← wrong status code, will fail!
 
 
 def test_create_task():
@@ -28,10 +32,15 @@ def test_create_task():
 
 def test_get_tasks_grows():
     """GET /tasks list grows after a task is created."""
+    # Initially empty
     response = client.get("/tasks")
     assert response.status_code == 200
     initial_count = len(response.json())
+
+    # Create a task
     client.post("/tasks", json={"title": "Buy groceries"})
+
+    # List should now be one larger
     response = client.get("/tasks")
     assert response.status_code == 200
     updated = response.json()

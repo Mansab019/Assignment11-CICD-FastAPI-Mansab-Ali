@@ -15,6 +15,10 @@ def setup_function():
 #     assert response.status_code == 200
 #     assert response.json() == {"status": "ok"}
 
+def test_health():
+    response = client.get("/health")
+    assert response.status_code == 999  # ← wrong status code, will fail!
+
 
 def test_create_task():
     """POST /tasks with valid payload returns 201 and the created task."""

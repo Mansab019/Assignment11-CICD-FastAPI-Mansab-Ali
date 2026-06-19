@@ -9,15 +9,15 @@ def setup_function():
     tasks.clear()
 
 
-# def test_health():
-#     """GET /health returns 200 and correct status message."""
-#     response = client.get("/health")
-#     assert response.status_code == 200
-#     assert response.json() == {"status": "ok"}
-
 def test_health():
+    """GET /health returns 200 and correct status message."""
     response = client.get("/health")
-    assert response.status_code == 999  # ← wrong status code, will fail!
+    assert response.status_code == 200
+    assert response.json() == {"status": "ok"}
+
+# def test_health():
+#     response = client.get("/health")
+#     assert response.status_code == 999  # ← wrong status code, will fail!
 
 
 def test_create_task():
